@@ -1,4 +1,5 @@
 {
     "python.autoComplete.extraPaths": [],
-    "python.analysis.extraPaths": []
+    "python.analysis.extraPaths": [],
+    "dbt.queryLimit": 500
 }

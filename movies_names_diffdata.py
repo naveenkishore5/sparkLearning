@@ -31,7 +31,7 @@ moviesDF = spark.read.option('sep', ',').schema(schema).csv(rating_file_loc)
 
 movieDictionary = spark.sparkContext.broadcast(loadMovieNames())
 
-topMoviesDf = moviesDF.groupBy('movieID').count().orderBy(func.desc('count'))
+topMoviesDf = moviesDF.groupBy('movieID').count().orderBy(func.desc('ratings_count'))
 
 def lookup_name(movieID):
     if movieID in movieDictionary.value.keys():
@@ -41,7 +41,7 @@ lookupNameUDF = func.udf(lookup_name)
 
 movies_with_names = topMoviesDf.withColumn('movieTitle', lookupNameUDF(func.col('movieID')))
 
-sorted_Movies_By_Names = movies_with_names.orderBy(func.desc('count'))
+sorted_Movies_By_Names = movies_with_names.orderBy(func.desc('ratings_count'))
 
 sorted_Movies_By_Names.show(10, False)
 

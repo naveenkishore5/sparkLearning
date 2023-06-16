@@ -18,3 +18,4 @@ result = rdd2.collect()
 for res in result:
     print(res)
 
+
